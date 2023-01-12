@@ -1,0 +1,137 @@
+<html>
+    <head>
+        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+
+        <title>Cowork</title>
+
+        <style>
+            #chartdiv {
+                width: 500px;
+                height: 300px;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="chartdiv"></div>
+    </body>
+
+    <script>
+        /**
+         * ---------------------------------------
+         * This demo was created using amCharts 4.
+         *
+         * For more information visit:
+         * https://www.amcharts.com/
+         *
+         * Documentation is available at:
+         * https://www.amcharts.com/docs/v4/
+         * ---------------------------------------
+         */
+
+        // Create chart instance
+        var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+        var data = [
+            {
+                "x": "A",
+                "volumn": 6
+            },
+            {
+                "x": "B",
+                "volumn": 4
+            },
+            {
+                "x": "C",
+                "volumn": 8
+            },
+            {
+                "x": "D",
+                "volumn": 9
+            },
+            {
+                "x": "E",
+                "volumn": 9
+            },
+            {
+                "x": "F",
+                "volumn": 10
+            },
+            {
+                "x": "G",
+                "volumn": 10
+            },
+            {
+                "x": "H",
+                "volumn": 8
+            },
+            {
+                "x": "I",
+                "volumn": 8
+            },
+            {
+                "x": "J",
+                "volumn": 8
+            },
+            {
+                "x": "K",
+                "volumn": 7
+            },
+            {
+                "x": "L",
+                "volumn": 5
+            },
+            {
+                "x": "M",
+                "volumn": 1
+            },
+            {
+                "x": "N",
+                "volumn": 6
+            }
+        ];
+
+        chart.data = data;
+
+        function init() {
+            // Create axes
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "x";
+            categoryAxis.renderer.grid.template.disabled = true;
+            categoryAxis.renderer.labels.template.disabled = true;
+            categoryAxis.renderer.line.stroke = am4core.color("#3787ac");
+
+            // Create value axis
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            valueAxis.renderer.grid.template.disabled = true;
+            valueAxis.renderer.labels.template.disabled = true;
+
+            // Create series
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.dataFields.valueY = "volumn";
+            series.dataFields.categoryX = "x";
+            series.name = "Cowork";
+            series.columns.template.width = am4core.percent(50);
+
+            var interval = setInterval(() => {
+                setRandomData();
+            }, 50);
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        function setRandomData() {
+            for (let i = 0; i < data.length; i++) {
+                data[i].volumn = getRandomInt(10);
+            }
+
+            chart.data = data;
+        }
+
+        init();
+    </script>
+</html>
